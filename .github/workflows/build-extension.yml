@@ -25,7 +25,7 @@ jobs:
               Set-Content -Path GeometryDebugger\GeometryDebuggerToolWindow.cs
       - name: Build
         run: msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: GeometryDebugger.vsix
           path: GeometryDebugger\bin\Release\GeometryDebugger.vsix
