@@ -1,0 +1,33 @@
+name: Build extension
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Update version
+        run: |
+          (Get-Content -Path GeometryDebugger\source.extension.vsixmanifest) |
+            ForEach-Object {$_ -Replace '1.0.0', '1.0.${{ github.run_number }}'} |
+              Set-Content -Path GeometryDebugger\source.extension.vsixmanifest
+          (Get-Content -Path GeometryDebugger\Properties\AssemblyInfo.cs) |
+            ForEach-Object {$_ -Replace '1.0.0', '1.0.${{ github.run_number }}'} |
+              Set-Content -Path GeometryDebugger\Properties\AssemblyInfo.cs
+          (Get-Content -Path GeometryDebugger\GeometryDebuggerToolWindow.cs) |
+            ForEach-Object {$_ -Replace '1.0.0', '1.0.${{ github.run_number }}'} |
+              Set-Content -Path GeometryDebugger\GeometryDebuggerToolWindow.cs
+      - name: Build
+        run: msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal
+      - uses: actions/upload-artifact@v2
+        with:
+          name: GeometryDebugger.vsix
+          path: GeometryDebugger\bin\Release\GeometryDebugger.vsix
