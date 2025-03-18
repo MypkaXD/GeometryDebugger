@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
+      - name: Add nuget to PATH
+        uses: nuget/setup-nuget@v1
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
       - name: Update version
@@ -23,8 +25,10 @@ jobs:
           (Get-Content -Path GeometryDebugger\GeometryDebuggerToolWindow.cs) |
             ForEach-Object {$_ -Replace '1.0.0', '1.0.${{ github.run_number }}'} |
               Set-Content -Path GeometryDebugger\GeometryDebuggerToolWindow.cs
+      - name: Restore
+        run: nuget restore
       - name: Build
-        run: msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal
+        run: msbuild /p:configuration=Release /p:platform=x86 /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal
       - uses: actions/upload-artifact@v4
         with:
           name: GeometryDebugger.vsix
