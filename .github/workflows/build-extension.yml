@@ -35,7 +35,6 @@ jobs:
           path: GeometryDebugger\bin\Release\GeometryDebugger.vsix
       - name : Create GitHub Release
         uses: softprops/action-gh-release@v2
-         if: startsWith(github.ref, 'refs/tags/')
         with:
           repository: MypkaXD/GeometryDebugger
           # note you'll typically need to create a personal access token
