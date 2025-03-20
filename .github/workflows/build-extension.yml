@@ -39,5 +39,5 @@ jobs:
         with:
           repository: MypkaXD/GeometryDebugger
           # note you'll typically need to create a personal access token
-          # with permissions to create releases in the other repo
+          # with permissions to create releases in the other repo test
           token: ${{ secrets.GITHUB_TOKEN }}
