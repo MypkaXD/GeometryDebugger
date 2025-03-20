@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <TextBlock Margin="10" HorizontalAlignment="Center">GeometryDebuggerToolWindow</TextBlock>
-            <Button Content="Click me!" Click="button1_Click" Width="120" Height="80" Name="button1"/>
+            <Button Content="Don't click me!" Click="button1_Click" Width="120" Height="80" Name="button1"/>
         </StackPanel>
     </Grid>
 </UserControl>

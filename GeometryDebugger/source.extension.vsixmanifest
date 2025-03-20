@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="GeometryDebugger.MypkaXD.be3e96a4-4587-4d0f-8a81-ebc7302f2f73" Version="1.0" Language="en-US" Publisher="MypkaXD" />
-    <DisplayName>GeometryDebugger</DisplayName>
-    <Description>Empty VSIX Project.</Description>
+    <Identity Id="GeometryDebugger.MypkaXD.be3e96a4-4587-4d0f-8a81-ebc7302f2f73" Version="2.0" Language="en-US" Publisher="MypkaXD" />
+    <DisplayName>TestExtension</DisplayName>
+    <Description xml:space="preserve">Not Empty</Description>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
