@@ -1,20 +1,20 @@
 @echo off
-:: Download and extract LIBPNG
+:: Download and build ZLIB
 
-set LIBPNG_URL=https://sourceforge.net/projects/libpng/files/libpng16/1.6.47/lpng1647.zip/download
-set LIBPNG_ZIP=lpng1647.zip
-set INSTALL_DIR=lpng1647
+set ZLIB_URL=https://zlib.net/zlib131.zip
+set ZLIB_ZIP=zlib131.zip
+set INSTALL_DIR=zlib-1.3.1
 
-echo [1/5] Downloading LIBPNG...
-powershell -Command "(New-Object Net.WebClient).DownloadFile('%LIBPNG_URL%', '%LIBPNG_ZIP%')"
+echo [1/5] Downloading ZLIB...
+powershell -Command "(New-Object Net.WebClient).DownloadFile('%ZLIB_URL%', '%ZLIB_ZIP%')"
 
 echo [2/5] Extracting archive...
 if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
-powershell -Command "Expand-Archive -Path '%LIBPNG_ZIP%' -DestinationPath '%INSTALL_DIR%'"
+powershell -Command "Expand-Archive -Path '%ZLIB_ZIP%' -DestinationPath '%INSTALL_DIR%'"
 
 echo [3/5] Cleaning up...
-del "%LIBPNG_ZIP%"
-echo LIBPNG successfully downloaded and extracted to %INSTALL_DIR%
+del "%ZLIB_ZIP%"
+echo ZLIB successfully downloaded and extracted to %INSTALL_DIR%
 
 echo [3/5] Creating folders...
 if not exist "%INSTALL_DIR%/%INSTALL_DIR%/install" mkdir "%INSTALL_DIR%/%INSTALL_DIR%/install"
@@ -26,18 +26,15 @@ cmake -S "%INSTALL_DIR%/%INSTALL_DIR%" -B "%INSTALL_DIR%/%INSTALL_DIR%/build" ^
     -A Win32 ^
 	-DCMAKE_CONFIGURATION_TYPES="Release" ^
 	-DCMAKE_INSTALL_PREFIX="%INSTALL_DIR%/%INSTALL_DIR%/install" ^ 
-    -DPNG_BUILD_ZLIB=OFF ^
-    -DPNG_DEBUG=OFF ^
-    -DPNG_EXECUTABLES=ON ^
-    -DPNG_HARDWARE_OPTIMIZATIONS=OFF ^
-    -DPNG_SHARED=OFF ^
-    -DPNG_STATIC=ON ^
-    -DPNG_TESTS=OFF ^
-    -DPNG_TOOLS=ON ^
+	-DINSTALL_BIN_DIR="%INSTALL_DIR%/%INSTALL_DIR%/install/bin" ^ 
+	-DINSTALL_INC_DIR="%INSTALL_DIR%/%INSTALL_DIR%/install/include" ^ 
+	-DINSTALL_LIB_DIR="%INSTALL_DIR%/%INSTALL_DIR%/install/lib" ^ 
+	-DINSTALL_MAN_DIR="%INSTALL_DIR%/%INSTALL_DIR%/install/share/man" ^ 
+	-DINSTALL_PKGCONFIG_DIR="%INSTALL_DIR%/%INSTALL_DIR%/install/share/pkgconfig" ^ 
+	-DZLIB_BUILD_EXAMPLES=OFF ^ 
     -DCMAKE_BUILD_TYPE=Release 
 
 echo [5/5] Building
 cmake --build "%INSTALL_DIR%/%INSTALL_DIR%/build" --config Release --target install
 
 echo Ready! Library in %INSTALL_DIR%/%INSTALL_DIR%/install
-pause
