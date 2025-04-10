@@ -19,4 +19,3 @@ echo [3/3] Building
 cmake --build "%INSTALL_DIR%/%INSTALL_DIR%/mybuild" --config Release --target install
 
 echo Ready! Library in %INSTALL_DIR%/%INSTALL_DIR%/install
-pause
